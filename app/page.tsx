@@ -1,101 +1,194 @@
-import Image from "next/image";
+"use client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
+import AuthButtons from "@/components/AuthButtons";
+import { useState } from "react";
+import { ArrowDown, ArrowUpNarrowWide } from "lucide-react";
 
-export default function Home() {
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+const features = [
+  {
+    title: "Create instant Google Meet links for quick meetings.",
+    id: 1,
+  },
+  {
+    title: "Schedule meetings at your preferred date and time.",
+    id: 2,
+  },
+  {
+    title: "Automatically sync with your Google Calendar (optional).",
+    id: 3,
+  },
+  {
+    title: "Secure authentication with Google Single Sign-On (SSO).",
+    id: 4,
+  },
+];
+
+export default function HomePage() {
+  const [openItems, setOpenItems] = useState<Number[]>([]);
+
+  const toggleItem = (id: Number) => {
+    setOpenItems((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : [...current, id]
+    );
+  };
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <main className="container mx-auto min-h-screen px-4 pb-32 bg-gradient-to-br">
+      <div className="flex min-h-[600px] flex-row justify-around items-center">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            Google Meet Link Generator
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-xl mb-8">
+            Instantly create or schedule Google Meet links with ease. Secure,
+            fast, and fully integrated with Google SSO.
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div>
+          <Card className="w-full max-w-md border-0">
+            <CardContent className="py-8">
+              <AuthButtons />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* <p className="mt-6 text-sm text-gray-500">
+        Or try the{" "}
+        <Link
+          href="/auth/signin"
+          className="text-blue-600 underline hover:text-blue-800 transition"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          custom sign-in page
+        </Link>{" "}
+        if configured.
+      </p> */}
+      <section className="mt-16 max-w-5xl mx-auto px-4">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
+          What You Can Do
+        </h2>
+        <Accordion
+          type="single"
+          className="bg-white border border-gray-200 shadow-lg rounded-2xl"
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="text-lg font-medium px-6 py-5 hover:bg-blue-50 rounded-t-2xl transition">
+              Create instant Google Meet links for quick meetings.
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6 text-gray-700 text-base">
+              Generate a Google Meet link with a single click—no extra steps, no
+              hassle.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger className="text-lg font-medium px-6 py-5 hover:bg-blue-50 transition">
+              Schedule meetings at your preferred date and time.
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6 text-gray-700 text-base">
+              Plan ahead by scheduling meetings and sharing links in advance
+              with your team or guests.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger className="text-lg font-medium px-6 py-5 hover:bg-blue-50 transition">
+              Automatically sync with your Google Calendar (optional).
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6 text-gray-700 text-base">
+              Seamlessly add meetings to your Google Calendar to stay organized
+              and get reminders.
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger className="text-lg font-medium px-6 py-5 hover:bg-blue-50 rounded-b-2xl transition">
+              Secure authentication with Google Single Sign-On (SSO).
+            </AccordionTrigger>
+            <AccordionContent className="px-6 pb-6 text-gray-700 text-base">
+              Your data is protected—sign in safely using your Google account
+              with industry-standard security.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+    </main>
   );
 }
+
+// import Link from "next/link";
+// import {
+//   Card,
+//   CardHeader,
+//   CardTitle,
+//   CardDescription,
+//   CardContent,
+//   CardFooter,
+// } from "@/components/ui/card";
+// import AuthButtons from "@/components/AuthButtons";
+
+// export default function HomePage() {
+//   return (
+//     <main className="min-h-screen bg-gradient-to-br from-white to-blue-50 flex flex-col items-center px-6 py-12">
+//       {/* Hero Card */}
+//       <Card className="w-full max-w-lg shadow-lg border border-gray-200">
+//         <CardHeader className="text-center">
+//           <CardTitle className="text-4xl font-extrabold text-gray-900">
+//             Google Meet Link Generator
+//           </CardTitle>
+//           <CardDescription className="mt-2 text-gray-600 text-lg max-w-md mx-auto">
+//             Instantly create or schedule Google Meet links with ease. Secure,
+//             fast, and fully integrated with Google SSO.
+//           </CardDescription>
+//         </CardHeader>
+
+//         <CardContent className="pt-8">
+//           <AuthButtons />
+//         </CardContent>
+
+//         <CardFooter className="text-center pt-6">
+//           <p className="text-sm text-gray-500">
+//             Or try the{" "}
+//             <Link
+//               href="/auth/signin"
+//               className="text-blue-600 underline hover:text-blue-800 transition"
+//             >
+//               custom sign-in page
+//             </Link>{" "}
+//             if configured.
+//           </p>
+//         </CardFooter>
+//       </Card>
+
+//       {/* Features Section */}
+//       <section className="w-full max-w-3xl mt-16">
+//         <Card className="border border-gray-200 shadow-md">
+//           <CardHeader>
+//             <CardTitle className="text-2xl font-semibold text-gray-900">
+//               What You Can Do
+//             </CardTitle>
+//             <CardDescription className="text-gray-700">
+//               Powerful features to streamline your meetings.
+//             </CardDescription>
+//           </CardHeader>
+
+//           <CardContent>
+//             <ul className="list-disc list-inside space-y-3 text-gray-700 text-lg">
+//               <li>Create instant Google Meet links for quick meetings.</li>
+//               <li>Schedule meetings at your preferred date and time.</li>
+//               <li>Automatically sync with your Google Calendar (optional).</li>
+//               <li>Secure authentication with Google Single Sign-On (SSO).</li>
+//             </ul>
+//           </CardContent>
+//         </Card>
+//       </section>
+//     </main>
+//   );
+// }
