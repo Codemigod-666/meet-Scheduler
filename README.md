@@ -13,6 +13,12 @@ pnpm dev
 # or
 bun dev
 ```
+Env Variables
+```bash
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+NEXTAUTH_SECRET="random-secret"
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
