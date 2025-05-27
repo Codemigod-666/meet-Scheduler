@@ -55,7 +55,6 @@ export default function ScheduledMeeting() {
 
     // 1. Check if the selected date is in the past
     if (selectedDateTime <= now) {
-      // alert("Cannot schedule a meeting in the past.");
       toast.error("Cannot schedule a meeting in the past.");
       return;
     }
@@ -67,25 +66,38 @@ export default function ScheduledMeeting() {
     );
 
     if (isDuplicate) {
-      // alert("A meeting is already scheduled at this date and time.");
       toast.error("A meeting is already scheduled at this date and time.");
       return;
     }
 
-    // If valid, proceed to schedule
-    const res = await fetch("/api/generate/scheduled", {
-      method: "POST",
-      body: JSON.stringify({ dateTime }),
-    });
+    // Start loading
+    setLoading(true);
 
-    if (!res.ok) {
-      // alert("Failed to schedule meeting.");
-      toast.error("Failed to schedule meeting.");
-      return;
+    try {
+      // Wait for 3 seconds (simulate delay)
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      const res = await fetch("/api/generate/scheduled", {
+        method: "POST",
+        body: JSON.stringify({ dateTime }),
+      });
+
+      if (!res.ok) {
+        toast.error("Failed to schedule meeting.");
+        return;
+      }
+
+      const data = await res.json();
+      dispatch(addScheduledMeeting(data));
+    } catch (err) {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+      toast.success("Meeting scheduled successfully!");
+      toast.info(
+        "You can view all scheduled meetings in the Scheduled Meetings section."
+      );
     }
-
-    const data = await res.json();
-    dispatch(addScheduledMeeting(data));
   };
 
   return (

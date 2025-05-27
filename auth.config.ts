@@ -19,7 +19,8 @@ export const authConfig = {
       const isProtectedPath =
         nextUrl.pathname.startsWith("/dashboard") ||
         nextUrl.pathname.startsWith("/meeting") || // <-- ADD THIS LINE
-        nextUrl.pathname.startsWith("/meetings"); // <-- AND THIS LINE (if you have both singular/plural)
+        nextUrl.pathname.startsWith("/meetings") || // <-- AND THIS LINE (if you have both singular/plural)
+        nextUrl.pathname.startsWith("/list"); // <-- AND THIS LINE (if you have both singular/plural)
 
       const isOnLoginPage = nextUrl.pathname.startsWith("/auth/signin");
 
