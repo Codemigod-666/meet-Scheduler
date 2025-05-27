@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"; // Assuming s
 import { useSession, signIn, signOut } from "next-auth/react"; // Import signIn and signOut
 import { useDispatch } from "react-redux";
 import { clearUser } from "@/app/store/userSlice";
+import { persistor } from "@/app/store/store";
 
 export default function Header() {
   const { data: session, status } = useSession(); // Get session data and loading status
@@ -132,6 +133,7 @@ export default function Header() {
                 onClick={async () => {
                   await signOut();
                   dispatch(clearUser());
+                  persistor.purge();
                 }}
                 className="text-gray-800 rounded-xl border-[2px] hover:bg-red-100 hover:text-red-700 transition-colors"
               >

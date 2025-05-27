@@ -227,11 +227,12 @@ const MeetingList = () => {
                         <TableCell>
                           <Badge
                             variant="outline"
-                            className={
-                              meeting.tag === "instant"
-                                ? "bg-blue-500 hover:bg-blue-600 text-white"
-                                : "bg-green-500 hover:bg-green-600 text-white"
-                            }
+                            style={{ borderRadius: "8px" }}
+                            className={`bg-${
+                              meeting.tag === "instant" ? "blue" : "green"
+                            }-500 hover:bg-${
+                              meeting.tag === "instant" ? "blue" : "green"
+                            }-600 text-white px-2 py-1`}
                           >
                             {meeting.tag}
                           </Badge>
@@ -266,6 +267,7 @@ const MeetingList = () => {
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
+                    style={{ cursor: "pointer" }}
                     onClick={handlePrev}
                     className={
                       currentPage === 1 ? "pointer-events-none opacity-50" : ""
@@ -280,6 +282,7 @@ const MeetingList = () => {
                 <PaginationItem>
                   <PaginationNext
                     onClick={handleNext}
+                    style={{ cursor: "pointer" }}
                     className={
                       currentPage === totalPages
                         ? "pointer-events-none opacity-50"
