@@ -9,7 +9,7 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
       <Header />
-      <div>{children}</div>;
+      <div>{children}</div>
       <Footer2 />
     </Provider>
   );

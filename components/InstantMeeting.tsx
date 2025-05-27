@@ -3,6 +3,7 @@ import { addInstantMeeting } from "../app/store/meetingSlice";
 import { RootState } from "../app/store/store";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Button } from "./ui/button";
 
 interface Meeting {
   link: string;
@@ -78,7 +79,7 @@ export default function InstantMeeting() {
           Instant Meeting Generator
         </h1>
 
-        <button
+        {/* <button
           className={`w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-xl transition duration-300 ${
             loading ? "opacity-60 cursor-not-allowed" : ""
           }`}
@@ -86,7 +87,18 @@ export default function InstantMeeting() {
           disabled={loading}
         >
           {loading ? "Generating..." : "Generate Instant Meeting"}
-        </button>
+        </button> */}
+
+        <Button
+          type="button"
+          onClick={handleGenerate}
+          disabled={loading}
+          className={`w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 rounded-xl transition duration-300 ${
+            loading ? "opacity-60 cursor-not-allowed" : ""
+          }`}
+        >
+          {loading ? "Generating..." : "Generate Instant Meeting"}
+        </Button>
 
         {/* {meeting && meeting.link !== "" && (
           <div className="mt-8 p-6 bg-white border border-gray-300 rounded-2xl shadow-inner">

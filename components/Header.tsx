@@ -144,7 +144,8 @@ export default function Header() {
               {" "}
               {/* Link directly to your custom login page */}
               <Button
-                variant="default" // Using default for primary action
+                style={{ borderRadius: "10px" }}
+                variant="default"
                 className="bg-blue-700 text-white hover:bg-blue-800 transition-colors shadow-md"
               >
                 Sign In

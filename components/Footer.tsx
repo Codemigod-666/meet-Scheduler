@@ -73,7 +73,7 @@ const Footer2 = ({
   return (
     <section className="border-t-2 border-gray-200 bg-white pt-12">
       <div className="container mx-auto">
-        <footer>
+        <footer className="ps-5">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
             <div className="col-span-2 mb-8 lg:mb-0">
               <Link
