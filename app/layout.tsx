@@ -36,7 +36,9 @@ export default async function RootLayout({
         <ToastContainer />
         <SessionProvider session={session}>
           <StoreProvider>
-            <div className="pt-[66px] mb-0">{children}</div>
+            <div className="pt-[66px] bg-gradient-to-br from-blue-100 via-white to-blue-300 mb-0">
+              {children}
+            </div>
           </StoreProvider>
         </SessionProvider>
       </body>

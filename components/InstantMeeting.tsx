@@ -73,13 +73,14 @@ export default function InstantMeeting() {
   console.log("meeting created at: ", meeting?.createdAt);
 
   return (
-    <div className="min-h-[720px] w-full flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-300 px-4 m-0">
-      <div className="w-full max-w-xl bg-white/60 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Instant Meeting Generator
-        </h1>
+    <div className="min-h-screen w-full flex items-start justify-center bg-gradient-to-br from-blue-100 via-white to-blue-300 px-4 mt-10">
+      <div className="w-full max-w-[screen] bg-white/60 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl p-8 ">
+        <div className="flex flex-col justify-center items-center gap-2">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+            Instant Meeting Generator
+          </h1>
 
-        {/* <button
+          {/* <button
           className={`w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-xl transition duration-300 ${
             loading ? "opacity-60 cursor-not-allowed" : ""
           }`}
@@ -89,16 +90,17 @@ export default function InstantMeeting() {
           {loading ? "Generating..." : "Generate Instant Meeting"}
         </button> */}
 
-        <Button
-          type="button"
-          onClick={handleGenerate}
-          disabled={loading}
-          className={`w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-6 rounded-xl transition duration-300 ${
-            loading ? "opacity-60 cursor-not-allowed" : ""
-          }`}
-        >
-          {loading ? "Generating..." : "Generate Instant Meeting"}
-        </Button>
+          <Button
+            type="button"
+            onClick={handleGenerate}
+            disabled={loading}
+            className={`w-fit bg-blue-600 hover:bg-blue-700 text-white text-lg py-5 rounded-xl transition duration-300 ${
+              loading ? "opacity-60 cursor-not-allowed" : ""
+            }`}
+          >
+            {loading ? "Generating..." : "Generate Instant Meeting"}
+          </Button>
+        </div>
 
         {/* {meeting && meeting.link !== "" && (
           <div className="mt-8 p-6 bg-white border border-gray-300 rounded-2xl shadow-inner">
