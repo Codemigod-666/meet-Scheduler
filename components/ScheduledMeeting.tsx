@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addScheduledMeeting } from "../app/store/meetingSlice";
 import { RootState } from "../app/store/store";
 import { toast } from "react-toastify";
+import { Button } from "./ui/button";
 
 interface Meeting {
   link: string;
@@ -101,36 +102,76 @@ export default function ScheduledMeeting() {
   };
 
   return (
-    <div className="min-h-[750px] w-full flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-300 px-4 m-0">
-      <div className="w-full max-w-xl bg-white/60 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Schedule a Meeting
-        </h1>
+    <div className="min-h-screen w-full flex items-start justify-center bg-gradient-to-br from-blue-100 via-white to-blue-300 px-4 mt-10">
+      <div className="w-full max-w-screen bg-white/60 backdrop-blur-md border border-gray-200 rounded-3xl shadow-2xl p-8">
+        <div className="flex flex-col justify-center items-center gap-2">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
+            Schedule a Meeting
+          </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-gray-700 text-lg mb-2">
-              Select Date & Time:
-            </label>
-            <input
-              type="datetime-local"
-              value={dateTime}
-              onChange={(e) => setDateTime(e.target.value)}
-              required
-              className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="w-[500px] space-y-6">
+            <div>
+              <label className="block text-gray-700 text-lg mb-2">
+                Select Date & Time:
+              </label>
+              <input
+                type="datetime-local"
+                value={dateTime}
+                onChange={(e) => setDateTime(e.target.value)}
+                required
+                className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              />
+            </div>
 
-          <button
-            className={`w-full bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 rounded-xl transition duration-300 ${
-              loading ? "opacity-60 cursor-not-allowed" : ""
-            }`}
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Scheduling..." : "Schedule Meeting"}
-          </button>
-        </form>
+            {/* <button
+              className={`w-fit font-bold bg-blue-600 hover:bg-blue-700 text-white text-lg py-2 px-3 rounded-xl transition duration-300 ${
+                loading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Scheduling..." : "Schedule Meeting"}
+            </button> */}
+            <div className="flex items-center justify-center">
+              <Button
+                type="submit"
+                disabled={loading}
+                className={`w-fit font-bold bg-blue-600 hover:bg-blue-700 text-white text-lg py-3 px-3 rounded-xl transition duration-300 ${
+                  loading ? "opacity-60 cursor-not-allowed" : ""
+                }`}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <svg
+                      className="animate-spin h-4 w-4 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4l3.536-3.536A9.954 9.954 0 0012 2C6.477 2 2 6.477 2 12h2z"
+                      ></path>
+                    </svg>
+                    Scheduling...
+                  </span>
+                ) : (
+                  "Schedule Meeting"
+                )}
+              </Button>
+            </div>
+          </form>
+        </div>
+
         <div className="max-h-[400px] overflow-y-auto mt-8">
           {scheduledMeetings.length > 0 &&
             scheduledMeetings.map((meeting, index) => (
