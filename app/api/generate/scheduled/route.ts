@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { EnrichedSession } from "@/auth.config";
 import { google } from "googleapis";
+import { DateTime } from "luxon";
 
 export async function POST(req: Request) {
   const session = (await auth()) as EnrichedSession;
@@ -19,11 +20,14 @@ export async function POST(req: Request) {
   const authClient = new google.auth.OAuth2();
   authClient.setCredentials({ access_token: session.accessToken });
 
+  const currentDate = new Date(dateTime).toISOString();
   const calendar = google.calendar({ version: "v3", auth: authClient });
+  const startTime = DateTime.fromISO(currentDate, { zone: "Asia/Kolkata" });
+  const endTime = startTime.plus({ minutes: 30 });
 
   try {
-    const startDate = new Date(dateTime);
-    const endDate = new Date(startDate.getTime() + 30 * 60000); // 30 mins later
+    // const startDate = new Date(dateTime);
+    // const endDate = new Date(startDate.getTime() + 30 * 60000); // 30 mins later
 
     const event = await calendar.events.insert({
       calendarId: "primary",
@@ -32,12 +36,12 @@ export async function POST(req: Request) {
         summary: "Scheduled Meeting",
         description: "Generated via Schedule Meeting Page",
         start: {
-          dateTime: startDate.toISOString(),
-          timeZone: "UTC",
+          dateTime: startTime.toISO({ suppressMilliseconds: true }),
+          timeZone: "Asia/Kolkata",
         },
         end: {
-          dateTime: endDate.toISOString(),
-          timeZone: "UTC",
+          dateTime: endTime.toISO({ suppressMilliseconds: true }),
+          timeZone: "Asia/Kolkata",
         },
         conferenceData: {
           createRequest: {
@@ -57,7 +61,7 @@ export async function POST(req: Request) {
     return Response.json({
       link: meetLink,
       createdAt: new Date().toISOString(),
-      scheduledFor: startDate.toISOString(),
+      scheduledFor: startTime.toISO({ suppressMilliseconds: true }),
     });
   } catch (error) {
     console.error("Google Calendar API error: ", error);
