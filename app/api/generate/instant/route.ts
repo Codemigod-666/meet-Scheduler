@@ -10,10 +10,10 @@
 //   };
 //   return Response.json(meetingData);
 // }
-
 import { auth } from "@/auth";
 import { EnrichedSession } from "@/auth.config";
 import { google } from "googleapis";
+import { DateTime } from "luxon";
 
 export async function POST(req: Request) {
   const session = (await auth()) as EnrichedSession;
@@ -27,7 +27,10 @@ export async function POST(req: Request) {
   const authClient = new google.auth.OAuth2();
   authClient.setCredentials({ access_token: session.accessToken });
 
+  const currentDate = new Date(dateTime).toISOString();
   const calendar = google.calendar({ version: "v3", auth: authClient });
+  const startTime = DateTime.fromISO(currentDate, { zone: "Asia/Kolkata" });
+  const endTime = startTime.plus({ minutes: 30 });
 
   try {
     const event = await calendar.events.insert({
@@ -37,15 +40,12 @@ export async function POST(req: Request) {
         summary: "Instant Meeting",
         description: "Generated Via Instant Meeting Page",
         start: {
-          dateTime:
-            new Date(dateTime).toISOString() || new Date().toISOString(),
-          timeZone: "UTC",
+          dateTime: startTime.toISO({ suppressMilliseconds: true }),
+          timeZone: "Asia/Kolkata",
         },
         end: {
-          dateTime: new Date(
-            new Date(dateTime || new Date()).getTime() + 30 * 60000
-          ).toISOString(),
-          timeZone: "UTC",
+          dateTime: endTime.toISO({ suppressMilliseconds: true }),
+          timeZone: "Asia/Kolkata",
         },
         conferenceData: {
           createRequest: {
