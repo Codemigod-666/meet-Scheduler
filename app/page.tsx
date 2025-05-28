@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useSession } from "next-auth/react";
 
 const features = [
   {
@@ -34,6 +35,7 @@ const features = [
 
 export default function HomePage() {
   const [openItems, setOpenItems] = useState<Number[]>([]);
+  const { data: session } = useSession();
 
   const toggleItem = (id: Number) => {
     setOpenItems((current) =>

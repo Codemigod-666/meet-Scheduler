@@ -15,6 +15,8 @@ export default function Dashboard() {
   const { data: session } = useSession();
   if (!session) return <div>Unauthorized</div>;
 
+  console.log(session, "Session");
+
   return (
     <div className="">
       <InstantMeeting />

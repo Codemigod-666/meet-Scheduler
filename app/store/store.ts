@@ -1,23 +1,9 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import meetingReducer from "./meetingSlice";
-// import userReducer from "./userSlice";
-
-// export const store = configureStore({
-//   reducer: {
-//     meeting: meetingReducer,
-//     user: userReducer,
-//   },
-// });
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
-
 // store.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import storageSession from "redux-persist/lib/storage/session"; // <-- uses sessionStorage
 import meetingReducer from "./meetingSlice";
 import userReducer from "./userSlice";
+import storageSession from "./storage";
 
 // Step 1: Combine reducers
 const rootReducer = combineReducers({

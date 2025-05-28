@@ -30,7 +30,7 @@ import { Footer2 } from "@/components/Footer";
 const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
         <Header />
         <div>{children}</div>
         <Footer2 />
