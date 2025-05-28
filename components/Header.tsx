@@ -106,7 +106,7 @@ export default function Header() {
                   variant="ghost"
                   className="md:hidden w-10 h-10 p-0 text-indigo-700 hover:bg-indigo-100"
                 >
-                  <CalendarCheck2 className="h-4 w-4" />
+                  <ListCheckIcon className="h-4 w-4" />
                 </Button>
               </Link>
             </>
